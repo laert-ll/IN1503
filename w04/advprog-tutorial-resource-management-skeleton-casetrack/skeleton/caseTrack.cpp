@@ -225,7 +225,22 @@ std::map<std::string, std::vector<double>> normalize_per_capita(std::unique_ptr<
   ** 4. Change the returned object to cases_normalized i.e.
   **    the map you just populated.
   */
-  return std::map<std::string, std::vector<double>>{};
+
+  auto regions = data_frame->regions;
+  auto population = data_frame->population;
+  auto cases = data_frame->cases;
+
+  std::map<std::string, std::vector<double>> cases_normalized;
+
+  for (size_t i = 0; i < regions.size(); ++i) {
+    auto region_name = regions[i];
+    auto region_population = population[i];
+    for (size_t day = 0; day < cases[i].size(); ++day) {
+      cases_normalized[region_name].push_back((100000.0 * cases[i][day]) / region_population);
+    }
+  }
+
+  return cases_normalized;
 }
 
 int main() {
@@ -259,17 +274,25 @@ int main() {
     // and regions = countries.
     // Hint: You need to dereference the pointer first.
 
+    data_frame = std::make_unique<DataFrame>();
+
+    data_frame->cases = dummy_cases;
+    data_frame->population = dummy_population;
+    data_frame->regions = countries;
+
     // Since this is not yet implemented, throw an exception.
     // This would make more sense in another function, which we
     // could then wrap in a try{}catch(){} block.
-    throw std::runtime_error("Tracking is not yet implemented for dummy data.\n");
+    // throw std::runtime_error("Tracking is not yet implemented for dummy data.\n");
     // TODO: Remove the above exception, once implemented.
   } else if (choice == 'r') {
     // TODO: get a unique_ptr from read_from_csv()
     // and assign it to the data_frame variable.
     // This unique pointer provides you real data.
 
-    throw std::runtime_error("Tracking is not yet implemented for real data.\n");
+    data_frame = read_from_csv();
+
+    // throw std::runtime_error("Tracking is not yet implemented for real data.\n");
     // TODO: Remove the above exception, once implemented.
   } else {
     std::cout << "It's fine if you cannot make up your mind. Maybe another time then...\n";
@@ -279,6 +302,12 @@ int main() {
   // TODO: Use a for loop to print "cases" for each country using the
   // data_frame pointer you just initialized. Hint: You can use the existing
   // operator<< overload (implemented above) for printing vectors.
+
+  auto normalized_data = normalize_per_capita(data_frame);
+  std::cout << "Normalized cases per 100000 in countries: \n\n";
+  for (const auto& [country, normalized_cases]: normalized_data) {
+    std::cout << country << normalized_cases;
+  }
 
   // TODO: After implementing normalize_per_capita()
   // 1. Call normalize_per_capita

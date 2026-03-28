@@ -159,6 +159,7 @@ bool test_matrix_vector_product() {
   // TODO: Delete all memory allocated with new
   delete[] matrix_raw;
   delete[] vec_raw;
+  delete[] res_raw;
 
   return tests_passed;
 }
