@@ -8,6 +8,17 @@
 
 class StudentCard {
   // TODO
+  private:
+
+  std::string _student_name;
+
+  public:
+
+  StudentCard(Student);
+
+  std::string get_name();
+
+  void print();
 };
 
 #endif

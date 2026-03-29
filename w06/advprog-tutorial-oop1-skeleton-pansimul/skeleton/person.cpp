@@ -11,6 +11,21 @@
 // You can find the signatures of these functions in
 // the header file. :)
 
+Person::Person(std::array<double, 2> location)
+  : curr_location(location), _id(Person::counter++) {}
+
+Person::Person(const Person& other)
+  : _id(Person::counter++) {
+  curr_location = other.curr_location;
+  status = other.status;
+}
+
+Person& Person::operator=(const Person& other) {
+  curr_location = other.curr_location;
+  status = other.status;
+  return *this;
+}
+
 std::array<double, 2> Person::get_location() const {
   return curr_location;
 }
