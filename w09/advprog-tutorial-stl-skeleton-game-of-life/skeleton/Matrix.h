@@ -26,6 +26,7 @@ public:
       : _rows(rows), _cols(cols), _arr(new T[rows * cols]) {
     // Initialize to a given uniform value
     // TODO: Apply an algorithm to fill this object with the uniform_value
+    std::fill(begin(), end(), uniform_value);
   }
 
   Matrix() = delete;
@@ -51,6 +52,7 @@ public:
     auto begin_address = _arr + i * _cols;
     // TODO: Apply an algorithm to copy all the elements from the given vector
     // to a given row of this object. You can use the begin_address.
+    std::copy(from.begin(), from.end(), begin_address);
   }
 
   std::vector<T> get_column(std::size_t j) {

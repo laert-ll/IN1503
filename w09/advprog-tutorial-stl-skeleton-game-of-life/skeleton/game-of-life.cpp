@@ -94,9 +94,11 @@ int main() {
         }
         // TODO: Apply an algorithm to accumulate (calculate the sum of) all
         // the neighbors of this cell and store it to the sums(i-1, j-1)
+        sums(i-1, j-1) = std::accumulate(neighbors.begin(), neighbors.end(), sums(i-1, j-1));
       }
     }
     // TODO: Apply the evolve function to each element in sums
+    std::for_each(sums.begin(), sums.end(), evolve);
 
     // Copying the new sums back to the domain
     for (auto i = 1; i < N - 1; i++) {
