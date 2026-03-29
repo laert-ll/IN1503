@@ -1,8 +1,8 @@
-#include "Vec_double.h"
+#include "Vec.h"
 #include <iostream>
 
 int main() {
-  Vec myvec;
+  Vec<double> myvec;
 
   myvec.push(2.0);
   myvec.push(3.0);

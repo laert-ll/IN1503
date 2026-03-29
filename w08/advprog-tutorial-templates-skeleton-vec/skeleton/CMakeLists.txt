@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(vec VERSION 0.1.0
         LANGUAGES CXX)
-add_executable(vec main.cpp Vec_double.cpp)
+add_executable(vec main.cpp Vec.h)
 
 target_compile_features(vec PRIVATE cxx_std_17)
 
