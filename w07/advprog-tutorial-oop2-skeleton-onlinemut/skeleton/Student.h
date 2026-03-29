@@ -19,7 +19,7 @@ private:
   const Curriculum* _study_program;
 
   // TODO: Convert to vector of pointers
-  std::vector<Course> _courses;
+  std::vector<std::shared_ptr<const Course>> _courses;
 
   friend class StudentCard;
 

@@ -11,6 +11,7 @@ Student::Student(std::string name, std::string id, const std::unique_ptr<Curricu
 
 void Student::register_for(std::string id) {
   try {
+    _courses.push_back(_study_program->request(id));
     // Try requesting the course from the curriculum and add it to the list
   } catch (std::runtime_error& e) {
     std::cout << "It looks like the program coordinators did not like your request:" << std::endl;
@@ -22,7 +23,7 @@ void Student::list_courses() const {
   std::cout << _name << " is taking these courses this semester: ";
   for (const auto& course : _courses) {
     // TODO: course will now be a pointer, so you also need to dereference it (using ->)
-    std::cout << course.id() << " ";
+    std::cout << course->id() << " ";
   }
   std::cout << std::endl;
 }

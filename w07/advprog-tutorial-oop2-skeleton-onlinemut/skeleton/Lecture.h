@@ -10,6 +10,10 @@ private:
 public:
   // TODO: Add describe()
 
+  void describe() const override;
+
+  std::string type() const override;
+
   Lecture(std::string id, std::string exam_date);
 };
 
